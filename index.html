@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Mágica</title>
+    
+    <!-- Fuente divertida de Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- Librería Font Awesome para los íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- AQUÍ CONECTAMOS EL ARCHIVO CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="calculadora">
+
+        <h1>✨ ¡A Contar! ✨</h1>
+
+        <!-- Íconos decorativos en los inputs usando placeholders visuales -->
+        <input type="number" id="numero1" placeholder="👉 Escribe aquí">
+        <input type="number" id="numero2" placeholder="👉 Y aquí">
+
+        <!-- Botones con Font Awesome -->
+        <div class="botones">
+            <button class="btn-suma" onclick="calcular('+')">
+                <div><i class="fa-solid fa-plus"></i> <i class="fa-solid fa-boxes-stacked"></i></div>
+                <span>Juntar</span>
+            </button>
+            
+            <button class="btn-resta" onclick="calcular('-')">
+                <div><i class="fa-solid fa-minus"></i> <i class="fa-solid fa-scissors"></i></div>
+                <span>Quitar</span>
+            </button>
+            
+            <button class="btn-multi" onclick="calcular('*')">
+                <div><i class="fa-solid fa-xmark"></i> <i class="fa-solid fa-layer-group"></i></div>
+                <span>Grupos</span>
+            </button>
+            
+            <button class="btn-divi" onclick="calcular('/')">
+                <div><i class="fa-solid fa-divide"></i> <i class="fa-solid fa-pizza-slice"></i></div>
+                <span>Repartir</span>
+            </button>
+        </div>
+
+        <p id="resultado">⭐ ? ⭐</p>
+
+    </div>
+
+
+    <!-- =========================================
+         JAVASCRIPT INCRUSTADO
+         ========================================= -->
+    <script>
+ function calcular(operacion) {
+    let txt1 = document.getElementById("numero1").value.trim();
+    let txt2 = document.getElementById("numero2").value.trim();
+
+    // 1. Validación de campos vacíos
+    if (txt1 === "" || txt2 === "") {
+        document.getElementById("resultado").innerHTML = "¡Faltan números! ✍️";
+        return;
+    }
+
+    // 2. Validación de división por cero
+    if (operacion === "/" && Number(txt2) === 0) {
+        document.getElementById("resultado").innerHTML = "¡Ups! No se puede repartir entre 0 🚫";
+        return;
+    }
+
+    // 3. Resolvemos la operación y la convertimos explícitamente a número flotante
+    let resultado = parseFloat(eval(txt1 + operacion + txt2));
+    
+    // 4. Si tiene decimales, lo limitamos rigurosamente a 5
+    if (resultado % 1 !== 0) {
+        resultado = parseFloat(resultado.toFixed(5));
+    }
+    
+    document.getElementById("resultado").innerHTML = "⭐ " + resultado + " ⭐";
+}       
+    </script>
+
+</body>
+
+</html>
